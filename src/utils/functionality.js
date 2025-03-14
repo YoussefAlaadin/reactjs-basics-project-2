@@ -1,7 +1,10 @@
-export function txtSlicer(txt=String, max=100) {
+export function txtSlicer(txt=String, max) {
     if (txt.length >= max) {
         return (
-            txt.slice(0, max) + "..."
+            `${txt.slice(0, max)}...`
         )
+    }
+    else {
+        return(txt)
     }
 }
