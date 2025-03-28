@@ -7,8 +7,13 @@ import Input from "./components/ui/Input";
 
 function App() {
   //      ** State**     //
+  const [product, setProduct] = useState({
+    title: '',
+    description: '',
+    imageURL: '',
+    price:''
+  })
   const [isOpen, setIsOpen] = useState(false);
-
   //      ** Handler**     //
   function open() {
     setIsOpen(true)
@@ -16,6 +21,16 @@ function App() {
 
   function close() {
     setIsOpen(false);
+  }
+
+  const onChangeEventHandler = (event) => {
+    
+    const { name, value } = event.target
+    
+    setProduct({
+      ...product,   [name]: value,
+    })
+    console.log([product]);
   }
 
   //      ** Render**     //
@@ -26,7 +41,7 @@ function App() {
   const renderFromInputList = formInputsList.map((input) => (
     <div key={input.id} className="flex flex-col mb">
       <label htmlFor="">{input.label}</label>
-      <Input type="text" name={input.name} id={input.id} />
+      <Input name={input.name} id={input.id} value={product[input.name]} onChange={onChangeEventHandler}/>  {/** Controlled Component*/}
     </div>
   ));
 
@@ -39,8 +54,8 @@ function App() {
       <Modal isOpen={isOpen} close={close} title="ADD NEW PRODUCT">
         {renderFromInputList}
         <div className="flex items-center space-x-2.5 mt-5">
-          <Button className="bg-violet-700">Submit</Button>
-          <Button className="bg-gray-700">Close</Button>
+          <Button onClick={close} className="bg-violet-700">Submit</Button>
+          <Button onClick={close} className="bg-gray-700">Close</Button>
         </div>
       </Modal>
     </main>
