@@ -7,16 +7,17 @@ import Input from "./components/ui/Input";
 
 function App() {
   //      ** State**     //
-  const [product, setProduct] = useState({
-    title: '',
-    description: '',
-    imageURL: '',
-    price:''
-  })
+  const defaultProductObj = {
+    title: "",
+    description: "",
+    imageURL: "",
+    price: "",
+  };
+  const [product, setProduct] = useState(defaultProductObj);
   const [isOpen, setIsOpen] = useState(false);
   //      ** Handler**     //
   function open() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   function close() {
@@ -24,14 +25,26 @@ function App() {
   }
 
   const onChangeEventHandler = (event) => {
-    
-    const { name, value } = event.target
-    
+    const { name, value } = event.target;
+
     setProduct({
-      ...product,   [name]: value,
-    })
+      ...product,
+      [name]: value,
+    });
     console.log([product]);
-  }
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log("Product submitted:", product);
+    close();
+    setProduct(defaultProductObj);
+  };
+
+  const onCancel = () => {
+    setProduct(defaultProductObj);
+    close();
+  };
 
   //      ** Render**     //
   const renderProductList = productList.map((product) => (
@@ -41,21 +54,38 @@ function App() {
   const renderFromInputList = formInputsList.map((input) => (
     <div key={input.id} className="flex flex-col mb">
       <label htmlFor="">{input.label}</label>
-      <Input name={input.name} id={input.id} value={product[input.name]} onChange={onChangeEventHandler}/>  {/** Controlled Component*/}
+      <Input
+        name={input.name}
+        id={input.id}
+        value={product[input.name]}
+        onChange={onChangeEventHandler}
+      />{" "}
+      {/** Controlled Component*/}
     </div>
   ));
 
   return (
     <main className="container mx-auto px-20">
-      <Button  className="bg-violet-700" onClick={open} >ADD ITEM</Button>
+      <Button className="bg-violet-700" onClick={open}>
+        ADD ITEM
+      </Button>
       <div className="m-5 p-2 gap-5 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {renderProductList}
       </div>
-      <Modal isOpen={isOpen} close={close} title="ADD NEW PRODUCT">
+      <Modal
+        isOpen={isOpen}
+        close={close}
+        onSubmit={submitHandler}
+        title="ADD NEW PRODUCT"
+      >
         {renderFromInputList}
         <div className="flex items-center space-x-2.5 mt-5">
-          <Button onClick={close} className="bg-violet-700">Submit</Button>
-          <Button onClick={close} className="bg-gray-700">Close</Button>
+          <Button onClick={submitHandler} className="bg-violet-700">
+            Submit
+          </Button>
+          <Button onClick={onCancel} className="bg-gray-700">
+            Cancel
+          </Button>
         </div>
       </Modal>
     </main>
