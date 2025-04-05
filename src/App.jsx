@@ -4,6 +4,7 @@ import Modal from "./components/ui/Modal";
 import { formInputsList, productList } from "./data";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
+import productValidation from "./validation";
 
 function App() {
   //      ** State**     //
@@ -36,9 +37,21 @@ function App() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log("Product submitted:", product);
-    close();
-    setProduct(defaultProductObj);
+    const errors= productValidation(product);
+    // console.log("Product submitted:", product);
+    // close();
+    // setProduct(defaultProductObj);
+    //console.log(errors)
+
+    //** Check if one of the errors has "" && if all the errors have ""**/
+    const hasNoError = Object.values(errors).some((error => error === "")) && Object.values(errors).every((error => error === ""));
+    if (hasNoError) {
+      console.log("Product submitted:", product);
+      close();
+      setProduct(defaultProductObj);
+    } else {
+      console.log("Error: ", errors, hasNoError);
+    }
   };
 
   const onCancel = () => {
