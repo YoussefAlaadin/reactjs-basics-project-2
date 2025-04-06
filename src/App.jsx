@@ -37,9 +37,9 @@ function App() {
     //console.log([product]);
     setErrors({
       ...errors,  
-      [name]: "",
+      [name]: productValidation({ ...product, [name]: value })[name], //updates the error message while typing
     })
-    console.log((errors));
+    //console.log( productValidation({ ...product, [name]: value })[name]);
     // console.log("Product: ", product);
   };
 
