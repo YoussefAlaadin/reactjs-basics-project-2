@@ -5,6 +5,7 @@ import { formInputsList, productList } from "./data";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import productValidation from "./validation";
+import ErrorMsg from "./components/ui/ErrorMsg";
 
 function App() {
   //      ** State**     //
@@ -16,6 +17,7 @@ function App() {
   };
   const [product, setProduct] = useState(defaultProductObj);
   const [isOpen, setIsOpen] = useState(false);
+  const [errors, setErrors] = useState(defaultProductObj);
   //      ** Handler**     //
   function open() {
     setIsOpen(true);
@@ -32,30 +34,40 @@ function App() {
       ...product,
       [name]: value,
     });
-    console.log([product]);
+    //console.log([product]);
+    setErrors({
+      ...errors,  
+      [name]: "",
+    })
+    console.log((errors));
+    // console.log("Product: ", product);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const errors= productValidation(product);
+    const errors = productValidation(product);
     // console.log("Product submitted:", product);
     // close();
     // setProduct(defaultProductObj);
     //console.log(errors)
 
     //** Check if one of the errors has "" && if all the errors have ""**/
-    const hasNoError = Object.values(errors).some((error => error === "")) && Object.values(errors).every((error => error === ""));
+    const hasNoError =
+      Object.values(errors).some((error) => error === "") &&
+      Object.values(errors).every((error) => error === "");
     if (hasNoError) {
       console.log("Product submitted:", product);
       close();
       setProduct(defaultProductObj);
     } else {
-      console.log("Error: ", errors, hasNoError);
+      console.log("Error: ",hasNoError);
+      setErrors(errors);
     }
   };
 
   const onCancel = () => {
     setProduct(defaultProductObj);
+    setErrors(defaultProductObj);
     close();
   };
 
@@ -72,8 +84,9 @@ function App() {
         id={input.id}
         value={product[input.name]}
         onChange={onChangeEventHandler}
-      />{" "}
+      />
       {/** Controlled Component*/}
+      <ErrorMsg msg={errors[input.name]} />
     </div>
   ));
 
@@ -85,6 +98,7 @@ function App() {
       <div className="m-5 p-2 gap-5 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {renderProductList}
       </div>
+
       <Modal
         isOpen={isOpen}
         close={close}
