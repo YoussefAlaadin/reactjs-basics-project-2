@@ -1,11 +1,13 @@
 import { useState } from "react";
 import ProductCard from "./components/productCard";
 import Modal from "./components/ui/Modal";
-import { formInputsList, productList } from "./data";
+import { colors, formInputsList, productList } from "./data";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import productValidation from "./validation";
-import ErrorMsg from "./components/ui/ErrorMsg";
+import ErrorMsg from "./components/ErrorMsg";
+import CircleColor from "./components/CircleColor";
+import ColorName from "./components/ColorName";
 
 function App() {
   //      ** State**     //
@@ -18,6 +20,8 @@ function App() {
   const [product, setProduct] = useState(defaultProductObj);
   const [isOpen, setIsOpen] = useState(false);
   const [errors, setErrors] = useState(defaultProductObj);
+  const [tempColor, setTempColor] = useState([]);
+  console.log(tempColor);
   //      ** Handler**     //
   function open() {
     setIsOpen(true);
@@ -36,9 +40,9 @@ function App() {
     });
     //console.log([product]);
     setErrors({
-      ...errors,  
+      ...errors,
       [name]: productValidation({ ...product, [name]: value })[name], //updates the error message while typing
-    })
+    });
     //console.log( productValidation({ ...product, [name]: value })[name]);
     // console.log("Product: ", product);
   };
@@ -60,7 +64,7 @@ function App() {
       close();
       setProduct(defaultProductObj);
     } else {
-      console.log("Error: ",hasNoError);
+      console.log("Error: ", hasNoError);
       setErrors(errors);
     }
   };
@@ -89,6 +93,23 @@ function App() {
       <ErrorMsg msg={errors[input.name]} />
     </div>
   ));
+  const renderCircleColors = colors.map((color) => (
+    <CircleColor
+      key={color}
+      color={color}
+      onClick={() => {
+        if (tempColor.includes(color)) {
+          setTempColor((prev) => prev.filter((item) => item !== color)); //remove color from array
+          return;
+        }
+        setTempColor((prev) => [...prev, color]); //Best Practice to use previous state
+      }}
+    />
+  ));
+  const renderNameColors = tempColor.map((color) => (
+    <ColorName key={color} color={color} />
+  ));
+  //      ** Render**     //
 
   return (
     <main className="container mx-auto px-20">
@@ -106,6 +127,12 @@ function App() {
         title="ADD NEW PRODUCT"
       >
         {renderFromInputList}
+        <div className="flex flex-wrap items-center mt-3">
+          {renderNameColors}
+        </div>
+        <div className="flex flex-wrap items-center space-x-2.5 mt-3">
+          {renderCircleColors}
+        </div>
         <div className="flex items-center space-x-2.5 mt-5">
           <Button onClick={submitHandler} className="bg-violet-700">
             Submit
