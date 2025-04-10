@@ -1,12 +1,18 @@
 import { txtSlicer } from "../utils/functionality";
+import CircleColor from "./CircleColor";
 import Image from "./Image";
 import Button from "./ui/Button";
-import ColSpan from "./ui/ColSpan";
 
 const ProductCard = ({ product }) => {
-  const { title, description, imageURL, price, name } = product;
+  const { title, description, imageURL, price, name, colors } = product;
+
+  //      ** Render**     //
+
+  const renderColors = colors.map((color) => {
+    return <CircleColor key={color} color={color} />;
+  });
+  
   return (
-    
     <div className="mx-auto p-3 border border-gray-300 rounded-md flex flex-col max-w-sm md:max-w-lg">
       <Image
         className={"rounded-md mb-4 w-full h-48 object-cover"}
@@ -15,11 +21,7 @@ const ProductCard = ({ product }) => {
       />
       <h3 className="text-lg font-semibold">{txtSlicer(title, 21)}</h3>
       <p className="text-gray-500 break-words">{txtSlicer(description, 100)}</p>
-      <div className="flex my-3 space-x-3 items-center">
-        <ColSpan className=" bg-red-700 " />
-        <ColSpan className=" bg-green-500 " />
-        <ColSpan className=" bg-blue-700 " />
-      </div>
+      <div className="flex my-3 space-x-3 items-center">{renderColors}</div>
 
       <div className="flex items-center justify-between">
         <span className="text-2xl font-semibold text-indigo-600">${price}</span>

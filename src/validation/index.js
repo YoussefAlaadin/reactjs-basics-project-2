@@ -1,9 +1,10 @@
-const productValidation = ({ title, description, imageURL, price }) => {
+const productValidation = ({ title, description, imageURL, price }, tempColor) => {
   const errors = {
     title: "",
     description: "",
     imageURL: "",
     price: "",
+    tempColor: "",
   };
   const validUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(imageURL);
 
@@ -20,6 +21,10 @@ const productValidation = ({ title, description, imageURL, price }) => {
   if (!price.trim() || isNaN(Number(price))) {
     errors.price = "Invalid Price Input!";
   }
+  if (tempColor.length < 1 || tempColor.length > 4) {
+    errors.tempColor = "Please select 1 to 4 colors!";
+  }
   return errors; 
 };
 export default productValidation;
+

@@ -14,12 +14,7 @@ export const productList = [
       "#FF6E31",
       "#3C2A21",
       "#CB1C8D",
-      "#645CBB",
-      "#FF0032",
-      "#820000",
-      "#13005A",
-      "#1F8A70",
-      "#84D2C5",
+     
     ],
     category: {
       name: "Nike",
@@ -50,7 +45,7 @@ export const productList = [
     imageURL:
       "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "120000",
-    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
+    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000"],
     category: {
       name: "Cars",
       imageURL:
@@ -65,7 +60,7 @@ export const productList = [
     imageURL:
       "https://plus.unsplash.com/premium_photo-1683736986779-987763ccc545?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHBjfGVufDB8fDB8fHww",
     price: "1500",
-    colors: [],
+    colors: ["#A31ACB", "#3C2A21", "#1F8A70"],
     category: {
       name: "PC Desktop",
       imageURL:
@@ -85,12 +80,6 @@ export const productList = [
       "#FF6E31",
       "#3C2A21",
       "#CB1C8D",
-      "#645CBB",
-      "#FF0032",
-      "#820000",
-      "#13005A",
-      "#1F8A70",
-      "#84D2C5",
     ],
     category: {
       name: "Nike",
@@ -121,7 +110,7 @@ export const productList = [
     imageURL:
       "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "120000",
-    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
+    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#FF0032"],
     category: {
       name: "Cars",
       imageURL:
@@ -136,7 +125,7 @@ export const productList = [
     imageURL:
       "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
     price: "1500",
-    colors: [],
+    colors: ["#1F8A70", "#820000", "#FF0032"],
     category: {
       name: "PC Desktop",
       imageURL:
